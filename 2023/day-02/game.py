@@ -3,6 +3,9 @@ class Game:
         self.rounds_string = rounds_string
         self.number = game_number
         self.rounds = []
+        self.minimum_red = 0
+        self.minimum_green = 0
+        self.minimum_blue = 0
 
     def convert_input_string(self):
         print(f"The string for game {self.number}: {self.rounds_string}")
@@ -28,3 +31,20 @@ class Game:
                 if current_round["blue"] > max_blue:
                     return False
         return True
+
+    def calculate_total_power(self) -> int:
+        self.__calculate_minimum_colours()
+        print(f"{self.minimum_red} {self.minimum_green} {self.minimum_blue}")
+        return self.minimum_red * self.minimum_green * self.minimum_blue
+
+    def __calculate_minimum_colours(self):
+        for current_round in self.rounds:
+            if "red" in current_round:
+                if current_round["red"] > self.minimum_red:
+                    self.minimum_red = current_round["red"]
+            if "green" in current_round:
+                if current_round["green"] > self.minimum_green:
+                    self.minimum_green = current_round["green"]
+            if "blue" in current_round:
+                if current_round["blue"] > self.minimum_blue:
+                    self.minimum_blue = current_round["blue"]
