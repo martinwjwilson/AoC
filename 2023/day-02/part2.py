@@ -10,13 +10,11 @@ games = []
 for count, line in enumerate(input_lines, start=1):
     input_string = line.split(":")[1].strip()
     game = Game(game_number=count, rounds_string=input_string)
-    game.convert_input_string()
     games.append(game)
 
 # calculate the total power
 total_game_power = 0
 for game in games:
-    print(f"The current game power is: {game.calculate_total_power()}")
-    total_game_power += game.calculate_total_power()
+    total_game_power += game.total_power
 
 print(f"The final number is: {total_game_power}")
