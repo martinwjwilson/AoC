@@ -26,12 +26,9 @@ def get_total_number_of_cards(sorted_cards: list[Scratchie]) -> int:
         # how many times the card should be checked
         number_of_times_to_check_card = 1
         if copies:
-            print(f"The current popped element will be: {copies}")
             number_of_times_to_check_card += copies.pop(0)
         # the matches come from the original card multiplied by the amount of times it should be checked
         positions_to_add_to_list = card.number_of_matches() - len(copies)
-        print(f"There should be {positions_to_add_to_list} positions added")
-        print(f"The copies: {copies}\nnumber of times this card should be checked: {number_of_times_to_check_card}\n")
         # add missing positions
         for i in range(positions_to_add_to_list):
             copies.append(0)
