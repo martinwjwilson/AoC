@@ -5,6 +5,17 @@ class Scratchie:
         self.numbers_on_card = numbers_on_card
         self.__calculate_value()
 
+    # Public methods
+
+    def number_of_matches(self) -> int:
+        total = 0
+        for i in self.numbers_on_card:
+            if i in self.winning_numbers:
+                total += 1
+        return total
+
+    # Private methods
+
     def __calculate_value(self):
         total = 0
         for i in self.numbers_on_card:
