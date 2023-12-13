@@ -14,7 +14,6 @@ class Map:
                 input_number = i.destination_range_start + difference
                 input_was_updated = True
         # return the answer
-        print(f"Getting returned is: {input_number}\n")
         return input_number
 
 
