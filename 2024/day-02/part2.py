@@ -20,7 +20,8 @@ if __name__ == '__main__':
     reports = create_reports(puzzle_input=puzzle_input)
     number_of_safe_reports = 0
     for report in reports:
+        print(report.levels)
         if report.is_safe():
-            print(report.levels)
+            print("this was safe\n")
             number_of_safe_reports += 1
     print(f"There are {number_of_safe_reports} safe reports")
