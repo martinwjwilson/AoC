@@ -1,14 +1,14 @@
+from word_search import WordSearch
+
+
 def get_input() -> list[str]:
     # get the input from the file
-    f = open('test_input.txt', 'r')
+    f = open('input.txt', 'r')
     content = f.read()
     return content.split("\n")
 
 
-def clean_puzzle_input(puzzle_input: [str]):
-    return
-
-
 if __name__ == '__main__':
     puzzle_input = get_input()
-    cleaned_puzzle_input = clean_puzzle_input(puzzle_input=puzzle_input)
+    word_search = WordSearch(grid=puzzle_input, word_to_search_for="XMAS")
+    print(word_search.number_of_occurrences())
