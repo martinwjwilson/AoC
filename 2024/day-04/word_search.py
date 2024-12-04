@@ -16,11 +16,42 @@ class WordSearch:
                 word_count += self._word_found_at_position(row_index=row_index, column_index=column_index)
         return word_count
 
+    def number_of_x_shaped(self):
+        x_count = 0
+        for row_index, row in enumerate(self.grid):
+            for column_index, column in enumerate(row):
+                if self._is_safe_x_position(row_index=row_index, column_index=column_index):
+                    x_count += self._x_found_at_position(row_index=row_index, column_index=column_index)
+        return x_count
+
     def _word_found_at_position(self, row_index: int, column_index: int) -> int:
         safe_directions = self._get_safe_directions(row_index=row_index, column_index=column_index)
         return self._number_of_words_exist_in_directions(row_index=row_index,
                                                          column_index=column_index,
                                                          directions=safe_directions)
+
+    def _is_safe_x_position(self, row_index: int, column_index: int):
+        return 0 < row_index < len(self.grid) - 1 and 0 < column_index < len(self.grid) - 1
+
+    def _x_found_at_position(self, row_index: int, column_index: int) -> int:
+        number_of_x_at_position = 0
+        if self.grid[row_index][column_index] == "A":
+            if (self.grid[row_index - 1][column_index - 1] == "M" and  # top left to bottom right
+                    self.grid[row_index + 1][column_index + 1] == "S"):
+                if ((self.grid[row_index + 1][column_index - 1] == "M" and  # bottom left to top right
+                     self.grid[row_index - 1][column_index + 1] == "S") or
+                        (self.grid[row_index - 1][column_index + 1] == "M" and  # top right to bottom left
+                         self.grid[row_index + 1][column_index - 1] == "S")):
+                    number_of_x_at_position += 1
+            elif (self.grid[row_index + 1][column_index + 1] == "M" and  # bottom right to top left
+                    self.grid[row_index - 1][column_index - 1] == "S"):
+                if ((self.grid[row_index + 1][column_index - 1] == "M" and  # bottom left to top right
+                     self.grid[row_index - 1][column_index + 1] == "S") or
+                        (self.grid[row_index - 1][column_index + 1] == "M" and  # top right to bottom left
+                         self.grid[row_index + 1][column_index - 1] == "S")):
+                    number_of_x_at_position += 1
+        print(f"There are {number_of_x_at_position} at x: {column_index}, y: {row_index}")
+        return number_of_x_at_position
 
     def _get_safe_directions(self, row_index: int, column_index: int):
         # Depending on the current position, it would only be possible to find the word in certain directions
