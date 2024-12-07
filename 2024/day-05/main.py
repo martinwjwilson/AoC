@@ -25,17 +25,17 @@ def create_all_page_ordering_rules(raw_page_ordering_rules: [str]) -> [PageOrder
     _page_ordering_rules = []
     for rule in raw_page_ordering_rules:
         first_number, second_number = rule.split("|")
-        _page_ordering_rules.append(PageOrderingRule(first_number=first_number,
-                                                     second_number=second_number))
+        _page_ordering_rules.append(PageOrderingRule(first_number=int(first_number),
+                                                     second_number=int(second_number)))
     return _page_ordering_rules
 
 
 def create_all_pages_updates(raw_page_updates):
-    print(f"All pages: {raw_page_updates}")
     _all_page_updates = []
     for page_update in raw_page_updates:
-        _all_page_updates.append(page_update.split(","))
-    print(_all_page_updates)
+        split_page_numbers = page_update.split(",")
+        split_page_numbers = [int(x) for x in split_page_numbers]
+        _all_page_updates.append(split_page_numbers)
     return _all_page_updates
 
 
@@ -43,8 +43,23 @@ def part_one_solution() -> str:
     puzzle_input = get_input()
     cleaned_puzzle_input = clean_puzzle_input(puzzle_input=puzzle_input)
     page_ordering_rules = create_all_page_ordering_rules(cleaned_puzzle_input[0])
-    pages_updates = create_all_pages_updates(raw_page_updates=cleaned_puzzle_input[1])
-    return cleaned_puzzle_input
+    page_updates = create_all_pages_updates(raw_page_updates=cleaned_puzzle_input[1])
+    correct_updates = get_all_correct_updates(ordering_rules=page_ordering_rules, page_updates=page_updates)
+    return ""
+
+
+def get_all_correct_updates(ordering_rules: [PageOrderingRule], page_updates: [[int]]) -> [[int]]:
+    correct_updates = []
+    for updates in page_updates:
+        if
+    return correct_updates
+
+
+def page_update_is_correct(ordering_rules: [PageOrderingRule], page_updates: [int]) -> bool:
+    # Go through each page and compare it against all the following pages to see if it follows all of the rules
+    for index, page in enumerate(page_updates):
+
+    return True
 
 
 if __name__ == '__main__':
