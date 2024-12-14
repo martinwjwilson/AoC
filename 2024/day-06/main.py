@@ -16,6 +16,7 @@ def get_input() -> list[[str]]:
 def create_room(room_input: [[str]]) -> [[str]]:
     # Use this method in future if a Room class gets used
     room_input = add_guard_to_room(room_input=room_input)
+    room = Room(layout=room_input)
     return room_input
 
 
