@@ -4,7 +4,7 @@ from room import Room
 
 def get_input() -> list[[str]]:
     # get the input from the file
-    f = open('test_input.txt', 'r')
+    f = open('input.txt', 'r')
     content = f.read()
     content = content.split("\n")
     cleaned_content = []
@@ -13,11 +13,11 @@ def get_input() -> list[[str]]:
     return cleaned_content
 
 
-def create_room(room_input: [[str]]) -> [[str]]:
+def create_room(room_input: [[str]]) -> Room:
     # Use this method in future if a Room class gets used
     room_input = add_guard_to_room(room_input=room_input)
     room = Room(layout=room_input)
-    return room_input
+    return room
 
 
 def add_guard_to_room(room_input: [[str]]) -> [any]:
@@ -30,13 +30,9 @@ def add_guard_to_room(room_input: [[str]]) -> [any]:
     return room_input
 
 
-def calculate_guard_path(room: [[str]], guard: Guard) -> [[str]]:
-    pass
-
-
-def count_guard_positions(room: [[str]]) -> int:
+def count_guard_positions(room: Room) -> int:
     number_of_positions_touched = 0
-    for row in room:
+    for row in room.layout:
         for character in row:
             if character == "X":
                 number_of_positions_touched += 1
@@ -46,7 +42,7 @@ def count_guard_positions(room: [[str]]) -> int:
 def part_one_solution() -> int:
     puzzle_input = get_input()
     room = create_room(room_input=puzzle_input)
-    calculate_guard_path(room=room)
+    room.calculate_guard_path()
     return count_guard_positions(room=room)
 
 
