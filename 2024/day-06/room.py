@@ -53,9 +53,7 @@ class Room:
 
     def move_guard(self):
         self.mark_current_position()
-        print(f"guard facing {self.guard.current_direction}")
         if self.guard.current_direction == Direction.NORTH:
-            print("Facing N")
             if self.guard_next_position_is_clear():
                 self.layout[self.guard.current_y - 1][self.guard.current_x] = self.guard
                 self.guard.current_y = self.guard.current_y - 1
@@ -109,9 +107,6 @@ class Room:
     def contains_infinite_loop(self) -> bool:
         current_move = 0
         while current_move < 80000:
-            print(f"Current move: {current_move}")
-            for row in self.layout:
-                print(row)
             if self.guard_next_move_is_off_board():
                 self.mark_current_position()
                 return False
