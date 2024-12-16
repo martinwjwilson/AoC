@@ -4,7 +4,7 @@ from room import Room
 
 def get_input() -> list[[str]]:
     # get the input from the file
-    f = open('input.txt', 'r')
+    f = open('test_input.txt', 'r')
     content = f.read()
     content = content.split("\n")
     cleaned_content = []
@@ -46,6 +46,34 @@ def part_one_solution() -> int:
     return count_guard_positions(room=room)
 
 
+def part_two_solution() -> int:
+    puzzle_input = get_input()
+    # Create a list of rooms with every possible new obstacle location
+    all_rooms = []
+    for row_index, row in enumerate(puzzle_input):
+        for character_index, character in enumerate(row):
+            if character == ".":
+                print(f"Current layout before append:")
+                for roww in puzzle_input:
+                    print(roww)
+                new_room = create_room(room_input=puzzle_input)
+                new_room.layout[character_index][row_index] = "#"
+                all_rooms.append(new_room)
+                print(f"Current layout after append:")
+                for rowww in puzzle_input:
+                    print(rowww)
+                print(" ")
+    number_of_looping_rooms = 0
+    for room in all_rooms:
+        pass
+        # Check if room causes a loop
+        # if room.contains_infinite_loop():
+        #     number_of_looping_rooms += 1
+
+    return number_of_looping_rooms
+
+
 if __name__ == '__main__':
     # Try using match case statements
-    print(part_one_solution())
+    # print(part_one_solution())
+    print(part_two_solution())

@@ -99,3 +99,16 @@ class Room:
 
     def mark_current_position(self):
         self.layout[self.guard.current_y][self.guard.current_x] = "X"
+
+    def contains_infinite_loop(self) -> bool:
+        current_move = 0
+        while current_move < 10000:
+            print(f"Current move: {current_move}")
+            for row in self.layout:
+                print(row)
+            if self.guard_next_move_is_off_board():
+                self.mark_current_position()
+                return False
+            self.move_guard()
+            current_move += 1
+        return True
