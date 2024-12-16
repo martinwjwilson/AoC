@@ -2,9 +2,12 @@ from guard import Guard, Direction
 
 
 class Room:
-    def __init__(self, layout: [[str]]):
+    def __init__(self, layout: [[str]], additional_obstacle_coordinates: tuple[int, int]=None):
         self.layout = layout
         self.guard = self.locate_guard()
+        if additional_obstacle_coordinates is not None:
+            self.add_additional_obstacle(row=additional_obstacle_coordinates[0],
+                                         column=additional_obstacle_coordinates[1])
 
     def locate_guard(self) -> Guard:
         for row_index, row in enumerate(self.layout):
@@ -14,6 +17,9 @@ class Room:
 
     def add_guard_to_room(self):
         self.layout[self.guard.current_y][self.guard.current_x] = self.guard
+
+    def add_additional_obstacle(self, row, column):
+        self.layout[row][column] = "#"
 
     def calculate_guard_path(self):
         current_move = 0
@@ -102,7 +108,7 @@ class Room:
 
     def contains_infinite_loop(self) -> bool:
         current_move = 0
-        while current_move < 10000:
+        while current_move < 80000:
             print(f"Current move: {current_move}")
             for row in self.layout:
                 print(row)

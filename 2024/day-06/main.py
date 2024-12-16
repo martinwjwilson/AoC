@@ -1,10 +1,11 @@
 from guard import Guard
 from room import Room
+from copy import deepcopy
 
 
 def get_input() -> list[[str]]:
     # get the input from the file
-    f = open('test_input.txt', 'r')
+    f = open('input.txt', 'r')
     content = f.read()
     content = content.split("\n")
     cleaned_content = []
@@ -13,10 +14,11 @@ def get_input() -> list[[str]]:
     return cleaned_content
 
 
-def create_room(room_input: [[str]]) -> Room:
+def create_room(room_input: [[str]], additional_obstacle_coordinates: tuple[int, int]) -> Room:
     # Use this method in future if a Room class gets used
     room_input = add_guard_to_room(room_input=room_input)
-    room = Room(layout=room_input)
+    room = Room(layout=room_input,
+                additional_obstacle_coordinates=additional_obstacle_coordinates)
     return room
 
 
@@ -53,22 +55,18 @@ def part_two_solution() -> int:
     for row_index, row in enumerate(puzzle_input):
         for character_index, character in enumerate(row):
             if character == ".":
-                print(f"Current layout before append:")
-                for roww in puzzle_input:
-                    print(roww)
-                new_room = create_room(room_input=puzzle_input)
-                new_room.layout[character_index][row_index] = "#"
-                all_rooms.append(new_room)
-                print(f"Current layout after append:")
-                for rowww in puzzle_input:
-                    print(rowww)
-                print(" ")
+                new_obstacle_coordinates = row_index, character_index
+                puzzle_input_copy = deepcopy(puzzle_input)
+                all_rooms.append(create_room(room_input=puzzle_input_copy,
+                                             additional_obstacle_coordinates=new_obstacle_coordinates))
+    print(f"There are {len(all_rooms)} rooms")
     number_of_looping_rooms = 0
-    for room in all_rooms:
-        pass
+    for room_index, room in enumerate(all_rooms):
+        print(f"Currently checking room: {room_index}")
         # Check if room causes a loop
-        # if room.contains_infinite_loop():
-        #     number_of_looping_rooms += 1
+        if room.contains_infinite_loop():
+            number_of_looping_rooms += 1
+            print(f"There are now {number_of_looping_rooms} looping rooms")
 
     return number_of_looping_rooms
 
