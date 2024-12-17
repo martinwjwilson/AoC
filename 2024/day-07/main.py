@@ -3,7 +3,7 @@ from equation import Equation
 
 def get_input() -> list[[str]]:
     # get the input from the file
-    f = open('test_input.txt', 'r')
+    f = open('input.txt', 'r')
     content = f.read()
     return content.split("\n")
 
@@ -38,7 +38,6 @@ def true_equations_test_value_sum(equations: [Equation]) -> int:
 
 def part_one_solution() -> int:
     puzzle_input = get_input()
-    print(puzzle_input)
     equations = convert_input_to_equations(puzzle_input=puzzle_input)
     true_equations = filter_equations(equations=equations)
     return true_equations_test_value_sum(equations=true_equations)
