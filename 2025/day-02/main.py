@@ -14,18 +14,24 @@ class Range:
 
     def id_is_invalid(self, _id):
         # [1,2,3,1,2,3,1,2,3]
-        is_valid = True
-        print(f"ID: {_id} -- Length = {len(_id)}")
+        # print(f"ID: {_id} -- Length = {len(_id)}")
         # multiply the length of the sub id by the current index you're checking to check against other sections
         for index in range(0, len(_id) - 1):
             # Create sub array
             sub_array = _id[0:index + 1]
-            print(f"Sub array: {sub_array}")
+            # print(f"Sub array: {sub_array}")
             # Check the next sub array
+            all_subs_match = True
             for sub_index in range(0, len(_id),len(sub_array)):
-                print(f"Sub sub array: {_id[sub_index:sub_index + len(sub_array)]}")
-            print("")
-        return is_valid
+                sub_sub_array = _id[sub_index:sub_index + len(sub_array)]
+                # print(f"Sub sub array: {sub_sub_array}")
+                if sub_array != sub_sub_array:
+                    all_subs_match = False
+            # print(f"All of the subs matched? {all_subs_match}")
+            # print("")
+            if all_subs_match:
+                return True
+        return False
 
     def get_full_range_as_integers(self):
         return list(range(self.start, self.end + 1))
@@ -48,5 +54,6 @@ if __name__ == "__main__":
     all_invalid_id_sums = []
     for _range in ranges:
         invalid_ids = _range.get_invalid_ids()
+        print(f"All of the invalid IDs:\n{invalid_ids}")
         all_invalid_id_sums.append(sum(invalid_ids))
     print(sum(all_invalid_id_sums))
